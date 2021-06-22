@@ -13,10 +13,10 @@
                     this.vid.play();
                 }.bind(this));
 
-		marker.addEventListener('markerLost', function() {
-			this.vid.pause();
-			this.vid.currentTime = 0;
-		}.bind(this));
+                marker.addEventListener('markerLost', function() {
+                    this.vid.pause();
+                    this.vid.currentTime = 0;
+                }.bind(this));
             }
         });
     };
@@ -55,7 +55,7 @@
         <a-assets>
             <video src="video/IMG_6820.MOV"
                 preload="auto" id="vid" response-type="arraybuffer" loop
-                crossorigin webkit-playsinline autoplay muted playsinline>
+                crossorigin webkit-playsinline autoplay playsinline>
             </video>
         </a-assets>
 
