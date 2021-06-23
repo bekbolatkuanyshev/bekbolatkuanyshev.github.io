@@ -3,13 +3,16 @@
 <script src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js'></script>
 <script>
     window.onload = function() {
+        <div>video handeler Loading</div>
+        print("video handler loading")
         AFRAME.registerComponent('videohandler', {
             init: function () {
                 var marker = this.el;
 
                 this.vid = document.querySelector("#vid");
-
+                print("------------->>>> llloook at mee")
                 marker.addEventListener('markerFound', function () {
+                    print(marker)
                     this.vid.play();
                 }.bind(this));
 
@@ -45,8 +48,9 @@
 
 <body style='margin : 0px; overflow: hidden;'>
     <div class="arjs-loader">
-        <div>Loading, please wait...</div>
+        <div>Loading, please wait... ----- 123123</div>
     </div>
+    <div>Still Loading</div>
     <a-scene
         vr-mode-ui="enabled: false;"
         renderer='antialias: true; alpha: true; precision: mediump;'
@@ -55,7 +59,7 @@
         <a-assets>
             <video src="video/IMG_6820.MOV"
                 preload="auto" id="vid" response-type="arraybuffer" loop
-                crossorigin webkit-playsinline autoplay playsinline>
+                crossorigin = "anonymous" webkit-playsinline style="display:none">
             </video>
         </a-assets>
 
