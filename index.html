@@ -1,59 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-<!-- <script src="vendor/aframe/build/aframe.min.js"></script> -->
-<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-<!-- <script src="vendor/aframe/build/aframe.js"></script> -->
-<!-- include for artoolkit trackingBackend -->
-<script src='aframe_lib/artoolkit.min.js'></script>
-<script src='aframe_lib/artoolkit.api.js'></script>
-<!-- include for aruco trackingBackend -->
-<script src='aframe_lib/svd.js'></script>
-<script src='aframe_lib/posit1.js'></script>
-<script src='aframe_lib/cv.js'></script>
-<script src='aframe_lib/aruco.js'></script>
-<script src='aframe_lib/threex-arucocontext.js'></script>
-<script src='aframe_lib/threex-arucodebug.js'></script>
-<!-- include for tango trackingBackend -->
-<script src='aframe_lib/THREE.WebAR.js'></script>
-<!-- include ar.js -->
-<script src='aframe_lib/signals.min.js'></script>
-<script src='aframe_lib/threex-artoolkitprofile.js'></script>
-<script src='aframe_lib/threex-artoolkitsource.js'></script>
-<script src='aframe_lib/threex-artoolkitcontext.js'></script>
-<script src='aframe_lib/threex-arbasecontrols.js'></script>
-<script src='aframe_lib/threex-armarkercontrols.js'></script>
-<script src='aframe_lib/threex-arsmoothedcontrols.js'></script>
-<script src='aframe_lib/threex-hittesting-plane.js'></script>
-<script src='aframe_lib/threex-hittesting-tango.js'></script>
-<script src='aframe_lib/threex-armarkerhelper.js'></script>
-<script src='aframe_lib/arjs-utils.js'></script>
-<script src='aframe_lib/arjs-session.js'></script>
-<script src='aframe_lib/arjs-anchor.js'></script>
-<script src='aframe_lib/arjs-hittesting.js'></script>
-<script src='aframe_lib/arjs-tangovideomesh.js'></script>
-<script src='aframe_lib/arjs-tangopointcloud.js'></script>
-<script src='aframe_lib/arjs-debugui.js'></script>
-<script src='aframe_lib/threex-armultimarkerutils.js'></script>
-<script src='aframe_lib/threex-armultimarkercontrols.js'></script>
-<script src='aframe_lib/threex-armultimarkerlearning.js'></script>
-<!-- include aframe-ar.js -->
-<script src="aframe_lib/system-arjs.js"></script>
-<script src="aframe_lib/component-anchor.js"></script>
-<script src="aframe_lib/component-hit-testing.js"></script>
-    
-    
-    <body style='margin : 0px; overflow: hidden;'>
-        <a-scene embedded arjs='trackingMethod: best;'>
-          <a-anchor hit-testing-enabled='true'>
-            <a-entity>
-              <video type="video/mp4" id="penguin-sledding" autoplay="true" loop="false" src="video/sintel.mp4" webkit-playsinline>
-               </a-entity>
-               <a-video  position="0 0.2 0" src="#penguin-sledding" rotation="90 180 0"></a-video>
-            </a-anchor>
-            <a-camera-static preset='hiro'/>
-            <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible="">
-            </a-entity>
-         </a-scene>
-      </body>
+    <head>
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+        <script>
+            AFRAME.registerComponent('videohandler', {
+                init: function () {
+                    var marker = this.el;
+                    this.vid = document.querySelector("#vid");
+
+                    marker.addEventListener('markerFound', function () {
+                        this.toggle = true;
+                        this.vid.play();
+                    }.bind(this));
+
+                    marker.addEventListener('markerLost', function () {
+                        this.toggle = false;
+                        this.vid.pause();
+                    }.bind(this));
+                },
+            });
+        </script>
+    </head>
+
+    <body style="margin: 0; overflow: hidden;">
+        <a-scene
+            vr-mode-ui="enabled: false"
+            loading-screen="enabled: false;"
+            arjs='sourceType: webcam; debugUIEnabled: false;'
+            id="scene"
+            embedded
+            gesture-detector
+        >
+            <a-assets>
+                <video
+                    id="vid"
+                    src="video/asset.mp4"
+                    preload="auto"
+                    response-type="arraybuffer"
+                    loop
+                    crossorigin
+                    webkit-playsinline
+                    autoplay
+                    playsinline
+                ></video>
+            </a-assets>
+
+            <a-marker
+                type="pattern"
+                preset="custom"
+                url="data/marker.patt"
+                videohandler
+                smooth="true"
+                smoothCount="10"
+                smoothTolerance="0.01"
+                smoothThreshold="5"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerA"
+            >
+                <a-video
+                    src="#vid"
+                    scale="1 1 1"
+                    position="0 0.1 0"
+                    rotation="-90 0 0"
+                    class="clickable"
+                    gesture-handler
+                ></a-video>
+            </a-marker>
+
+            <a-entity camera></a-entity>
+        </a-scene>
+    </body>
 </html>
