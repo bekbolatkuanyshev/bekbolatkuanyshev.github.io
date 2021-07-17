@@ -10,15 +10,20 @@
                 init: function () {
                     var marker = this.el;
                     this.vid = document.querySelector("#vid");
+                    this.audio = document.querySelector("#audio");
 
                     marker.addEventListener('markerFound', function () {
                         this.toggle = true;
                         this.vid.play();
+                        this.audio.volume = 0.2;
+                        this.audio.play();
+
                     }.bind(this));
 
                     marker.addEventListener('markerLost', function () {
                         this.toggle = false;
                         this.vid.pause();
+                        this.audio.pause();
                     }.bind(this));
                 },
             });
@@ -28,7 +33,7 @@
     <body style="margin: 0; overflow: hidden;">
         <a-scene
             vr-mode-ui="enabled: false"
-            loading-screen="enabled: false;"
+            loading-screen="enabled: true;"
             arjs='sourceType: webcam; debugUIEnabled: false;'
             id="scene"
             embedded
@@ -46,6 +51,11 @@
                     autoplay
                     playsinline
                 ></video>
+                <audio
+                    id = "audio"
+                    src = "vide/heartbeat.mp3"
+                    preload = "auto"
+                ></audio>>
             </a-assets>
 
             <a-marker
