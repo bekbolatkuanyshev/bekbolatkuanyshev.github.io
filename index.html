@@ -10,7 +10,6 @@
                 init: function () {
                     var marker = this.el;
                     this.vid = document.querySelector("#vid");
-                    this.audio = document.querySelector("#audio");
 
                     marker.addEventListener('markerFound', function () {
                         this.toggle = true;
@@ -25,12 +24,29 @@
                         this.toggle = false;
                         this.vid.pause();
                         // this.audio.pause();
-                        this.audio.components.audio.pauseMp3()
                     }.bind(this));
                 },
             });
         </script>
+
         <script>
+            AFRAME.registerComponent('audiohandler', {
+            init:function() {
+                let playing = false;
+                let audio = document.querySelector("#background");
+                this.el.addEventListener('click', () => {
+                    if(!playing) {
+                        audio.play();
+                    } else {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }
+                    playing = !playing;
+                });
+            }
+            })
+        </script>
+        <!-- <script>
             const audioContainer = document.getElementById("audioContainer"); 
             
             function playMp3() { 
@@ -40,7 +56,7 @@
             function pauseMp3() { 
               audioContainer.pause(); 
             } 
-        </script>
+        </script> -->
     </head>
 
     <body style="margin: 0; overflow: hidden;">
@@ -54,6 +70,7 @@
             embedded
             gesture-detector
         >
+        <a-box audiohandler> </a-box>
             <a-assets>
                 <video
                     id="vid"
@@ -67,7 +84,7 @@
                     playsinline
                 ></video>
                 <audio
-                    id = "audio"
+                    id = "background"
                     src = "video/background.mp3"
                 ></audio>>
             </a-assets>
@@ -91,9 +108,8 @@
                     scale="1 1 1"
                     position="0 0.1 0"
                     rotation="-90 0 0"
-                    class="clickable"
-                    gesture-handler
-                    sound = "src: #audio; onclick;"
+                    <!-- class="clickable" -->
+                    <!-- gesture-handler -->
                 ></a-video>
             </a-marker>
 <!-- 
