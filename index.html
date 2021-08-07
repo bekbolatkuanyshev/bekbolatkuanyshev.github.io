@@ -10,13 +10,14 @@
                 init: function () {
                     var marker = this.el;
                     this.vid = document.querySelector("#vid");
-                    // this.audio = document.querySelector("#audio");
+                    this.audio = document.querySelector("#audio");
 
                     marker.addEventListener('markerFound', function () {
                         this.toggle = true;
                         this.vid.play();
                         // this.audio.volume = 0.2;
                         // this.audio.play();
+                        this.audio.components.audio.playMp3()
 
                     }.bind(this));
 
@@ -24,6 +25,7 @@
                         this.toggle = false;
                         this.vid.pause();
                         // this.audio.pause();
+                        this.audio.components.audio.pauseMp3()
                     }.bind(this));
                 },
             });
@@ -91,7 +93,7 @@
                     rotation="-90 0 0"
                     class="clickable"
                     gesture-handler
-                    sound = "src: #audio; on: click;"
+                    sound = "src: #audio; onclick;"
                 ></a-video>
             </a-marker>
 <!-- 
