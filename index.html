@@ -64,11 +64,10 @@
                     autoplay
                     playsinline
                 ></video>
-                <!-- <audio
+                <audio
                     id = "audio"
-                    src = "video/heartbeat.mp3"
-                    preload = "auto"
-                ></audio>> -->
+                    src = "video/background.mp3"
+                ></audio>>
             </a-assets>
 
             <a-marker
@@ -92,9 +91,10 @@
                     rotation="-90 0 0"
                     class="clickable"
                     gesture-handler
+                    sound = "src: #audio; on: click;"
                 ></a-video>
             </a-marker>
-
+<!-- 
             <audio id="audioContainer">
                 <source src="video/background.mp3" type="audio/mpeg">
             </audio>
@@ -102,7 +102,7 @@
             <p>Click the buttons to play or pause the audio.</p>
               
             <button onclick="playMp3()" type="button">Play Mp3</button>
-            <button onclick="pauseMp3()" type="button">Pause Mp3</button> 
+            <button onclick="pauseMp3()" type="button">Pause Mp3</button>  -->
 
             <a-entity camera></a-entity>
         </a-scene>
