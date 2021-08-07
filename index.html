@@ -10,27 +10,49 @@
                 init: function () {
                     var marker = this.el;
                     this.vid = document.querySelector("#vid");
-                    this.audio = document.querySelector("#audio");
+                    // this.audio = document.querySelector("#audio");
 
                     marker.addEventListener('markerFound', function () {
                         this.toggle = true;
                         this.vid.play();
-                        this.audio.volume = 0.2;
-                        this.audio.play();
+                        // this.audio.volume = 0.2;
+                        // this.audio.play();
 
                     }.bind(this));
 
                     marker.addEventListener('markerLost', function () {
                         this.toggle = false;
                         this.vid.pause();
-                        this.audio.pause();
+                        // this.audio.pause();
                     }.bind(this));
                 },
             });
         </script>
+        <script>
+            const audioContainer = document.getElementById("audioContainer"); 
+            
+            function playMp3() { 
+              audioContainer.play(); 
+            } 
+            
+            function pauseMp3() { 
+              audioContainer.pause(); 
+            } 
+        </script>
     </head>
 
     <body style="margin: 0; overflow: hidden;">
+
+        <audio id="audioContainer">
+            <source src="video/heartbeat.mp3" type="audio/mp3">
+        </audio>
+          
+        <p>Click the buttons to play or pause the audio.</p>
+          
+        <button onclick="playMp3()" type="button">Play Mp3</button>
+        <button onclick="pauseMp3()" type="button">Pause Mp3</button> 
+          
+
         <a-scene
             vr-mode-ui="enabled: false"
             loading-screen="enabled: true;"
@@ -51,11 +73,11 @@
                     autoplay
                     playsinline
                 ></video>
-                <audio
+                <!-- <audio
                     id = "audio"
                     src = "video/heartbeat.mp3"
                     preload = "auto"
-                ></audio>>
+                ></audio>> -->
             </a-assets>
 
             <a-marker
