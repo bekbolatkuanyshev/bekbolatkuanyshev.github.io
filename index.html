@@ -42,15 +42,6 @@
     </head>
 
     <body style="margin: 0; overflow: hidden;">
-
-        <audio id="audioContainer">
-            <source src="video/heartbeat.mp3" type="audio/mp3">
-        </audio>
-          
-        <p>Click the buttons to play or pause the audio.</p>
-          
-        <button onclick="playMp3()" type="button">Play Mp3</button>
-        <button onclick="pauseMp3()" type="button">Pause Mp3</button> 
           
 
         <a-scene
@@ -103,6 +94,15 @@
                     gesture-handler
                 ></a-video>
             </a-marker>
+
+            <audio id="audioContainer">
+                <source src="video/background.mp3" type="audio/mp3">
+            </audio>
+              
+            <p>Click the buttons to play or pause the audio.</p>
+              
+            <button onclick="playMp3()" type="button">Play Mp3</button>
+            <button onclick="pauseMp3()" type="button">Pause Mp3</button> 
 
             <a-entity camera></a-entity>
         </a-scene>
